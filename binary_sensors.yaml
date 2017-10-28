@@ -1,0 +1,8 @@
+- platform: template
+  sensors:
+    washer_status:
+      friendly_name: 'Washer Status'
+      value_template: {{ states.sensor.laundry_washer_power.state | float > 6 }}
+    dryer_status:
+      friendly_name: 'Dryer Status'
+      value_template: {{ states.sensor.laundry_dryer_power.state | float > 6 }}

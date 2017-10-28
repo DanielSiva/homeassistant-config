@@ -1,0 +1,431 @@
+- alias: 'Turn on Steve lamp at 7:30am'
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '07:30:00'
+  condition:
+    - condition: state
+      entity_id: light.steve_lamp
+      state: 'off'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.steve_lamp
+
+- alias: 'Turn off Steve lamp at 7:30pm'
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '19:30:00'
+  condition:
+    - condition: state
+      entity_id: light.steve_lamp
+      state: 'on'
+  action:
+    - service: light.turn_off
+      data:
+        entity_id: light.steve_lamp
+
+- alias: 'Turn on Jimmys heater'
+  initial_state: 'on'
+  hide_entity: true
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.jimmy_left_work
+        state: 'on'
+      - condition: numeric_state
+        entity_id: 'sensor.dark_sky_apparent_temperature'
+        below: '14'
+      - condition: time
+        after: '15:00:00'
+        before: '21:00:00'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.jimmy_heading_home
+      to: 'on'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.james_heater
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.jimmy_left_work
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.jimmy_heading_home
+
+- alias: 'Reset jimmy_heading_home toggle'
+  hide_entity: True
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: input_boolean.jimmy_heading_home
+    to: 'on'
+    for:
+      minutes: 10
+  action:
+   - service: homeassistant.turn_off
+     entity_id: input_boolean.jimmy_heading_home
+
+- alias: 'Reset jimmy_left_work toggle'
+  hide_entity: True
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: input_boolean.jimmy_left_work
+    to: 'on'
+    for:
+      minutes: 40
+  action:
+   - service: homeassistant.turn_off
+     entity_id: input_boolean.jimmy_left_work
+
+- alias: 'Toggle light.claire_wardrobe with click'
+  hide_entity: true
+  trigger:
+    platform: event
+    event_type: click
+    event_data:
+        entity_id: binary_sensor.switch_158d0001644882
+        click_type: single
+  action:
+    service: light.toggle
+    entity_id: light.claire_wardrobe
+
+- alias: 'Turn off living room lights'
+  hide_entity: True
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d00015da3e8
+    from: 'on'
+    to: 'off'
+    for:
+      minutes: 90
+  condition:
+    - condition: state
+      entity_id: media_player.tv
+      state: 'off'
+  action:
+   - service: light.turn_off
+     data:
+       entity_id: light.lounge_lights
+   - service: light.turn_off
+     data:
+       entity_id: light.living_room_lamp_1
+   - service: light.turn_off
+     data:
+       entity_id: light.living_room_lamp_2
+   - service: light.turn_off
+     data:
+       entity_id: light.living_room_lamp_3
+
+- alias: 'Turn off light.claire_wardrobe'
+  hide_entity: True
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: light.claire_wardrobe
+    from: 'off'
+    to: 'on'
+    for:
+      minutes: 15
+  condition:
+    - condition: state
+      entity_id: light.claire_wardrobe
+      state: 'on'
+  action:
+   - service: light.turn_off
+     data:
+       entity_id: light.claire_wardrobe
+
+- alias: 'Turn off light.garden_light_left'
+  hide_entity: True
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: light.garden_light_left
+    from: 'off'
+    to: 'on'
+    for:
+      minutes: 15
+  condition:
+    - condition: state
+      entity_id: light.garden_light_left
+      state: 'on'
+  action:
+   - service: light.turn_off
+     data:
+       entity_id: light.garden_light_left
+
+
+- alias: 'Turn off light.garden_light_right'
+  hide_entity: True
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: light.garden_light_right
+    from: 'off'
+    to: 'on'
+    for:
+      minutes: 15
+  condition:
+    - condition: state
+      entity_id: light.garden_light_right
+      state: 'on'
+  action:
+   - service: light.turn_off
+     data:
+       entity_id: light.garden_light_right
+
+- alias: 'Turn off stairs light'
+  hide_entity: True
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d00015da42d
+    from: 'on'
+    to: 'off'
+    for:
+      minutes: 30
+  condition:
+    - condition: state
+      entity_id: light.stairs_down
+      state: 'on'
+  action:
+   - service: light.turn_off
+     data:
+       entity_id: light.stairs_down
+
+- alias: 'Turn off bottom toilet light (a)'
+  hide_entity: True
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d0001a2f5df
+    to: 'on'
+    for:
+      minutes: 30
+  condition:
+    - condition: state
+      entity_id: light.toilet_bottom_floor
+      state: 'on'
+  action:
+   - service: light.turn_off
+     data:
+       entity_id: light.toilet_bottom_floor
+
+- alias: 'Turn off bottom toilet light (b)'
+  hide_entity: True
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d0001a2f5df
+    to: 'off'
+    for:
+      minutes: 30
+  condition:
+    - condition: state
+      entity_id: light.toilet_bottom_floor
+      state: 'on'
+  action:
+   - service: light.turn_off
+     data:
+       entity_id: light.toilet_bottom_floor
+
+- alias: 'Turn off middle toilet light (a)'
+  hide_entity: True
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d0001a49aa5
+    to: 'on'
+    for:
+      minutes: 30
+  condition:
+    - condition: state
+      entity_id: light.toilet_middle_floor
+      state: 'on'
+  action:
+   - service: light.turn_off
+     data:
+       entity_id: light.toilet_middle_floor
+
+- alias: 'Turn off middle toilet light (b)'
+  hide_entity: True
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d0001a49aa5
+    to: 'off'
+    for:
+      minutes: 30
+  condition:
+    - condition: state
+      entity_id: light.toilet_middle_floor
+      state: 'on'
+  action:
+   - service: light.turn_off
+     data:
+       entity_id: light.toilet_middle_floor
+
+- alias: 'Turn on outside light on door open'
+  hide_entity: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d0001a21c95
+    to: 'on'
+  condition:
+   - condition: state
+     entity_id: light.garden_light_left
+     state: 'off'
+   - condition: sun
+     after: sunset
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.garden_light_left
+
+- alias: 'Turn on stairs light on door open'
+  hide_entity: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d0001a49a7c
+    to: 'on'
+  condition:
+   - condition: state
+     entity_id: light.stairs_down
+     state: 'off'
+   - condition: sun
+     after: sunset
+   - condition: time
+     after: '15:00:00'
+     before: '23:00:00'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.stairs_down
+
+- alias: 'Turn on hallway light on movement'
+  hide_entity: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d0001a1f247
+    to: 'on'
+  condition:
+   - condition: state
+     entity_id: light.hallway_bottom_floor
+     state: 'off'
+   - condition: sun
+     after: sunset
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.hallway_bottom_floor
+
+- alias: 'Turn off hallway light'
+  hide_entity: True
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d0001a1f247
+    to: 'off'
+    for:
+      minutes: 15
+  condition:
+    - condition: state
+      entity_id: light.hallway_bottom_floor
+      state: 'on'
+  action:
+   - service: light.turn_off
+     data:
+       entity_id: light.hallway_bottom_floor
+
+- alias: 'Turn on middle toilet light on door open'
+  hide_entity: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d0001a49aa5
+    to: 'on'
+  condition:
+   - condition: state
+     entity_id: light.toilet_middle_floor
+     state: 'off'
+   - condition: sun
+     after: sunset
+   - condition: time
+     after: '15:00:00'
+     before: '23:00:00'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.toilet_middle_floor
+
+- alias: 'Turn on bottom toilet light on door open'
+  hide_entity: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d0001a2f5df
+    to: 'on'
+  condition:
+   - condition: state
+     entity_id: light.toilet_bottom_floor
+     state: 'off'
+   - condition: time
+     after: '07:00:00'
+     before: '23:00:00'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.toilet_bottom_floor
+
+- alias: 'Turn on bottom bathroom light on door open'
+  hide_entity: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d0001a4c8f1
+    to: 'on'
+  condition:
+   - condition: state
+     entity_id: light.bathroom_bottom_floor
+     state: 'off'
+   - condition: sun
+     after: sunset
+   - condition: time
+     after: '15:00:00'
+     before: '23:00:00'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.bathroom_bottom_floor
+
+- alias: 'Turn off lights at sunrise'
+  hide_entity: True
+  initial_state: 'on'
+  trigger:
+    platform: sun
+    event: sunrise
+  action:
+    - service: light.turn_off
+      data:
+        entity_id: light.garden_light_left
+    - service: light.turn_off
+      data:
+        entity_id: light.garden_light_right
+    - service: light.turn_off
+      data:
+        entity_id: light.deck_light_left
+    - service: light.turn_off
+      data:
+        entity_id: light.deck_light_right
+
+- alias: "Strip 1 Animation Speed"
+  initial_state: True
+  hide_entity: True
+  trigger:
+    - platform: state
+      entity_id: input_slider.strip1_animation_speed
+  action:
+    - service: mqtt.publish
+      data_template:
+        topic: "bruh/strip1/set"
+        payload: '{"transition":{{ trigger.to_state.state | int }}}'

@@ -1,0 +1,147 @@
+- platform: mqtt
+  name: "Steve Lamp"
+  state_topic: "stat/sonoff/steve_lamp/POWER"
+  command_topic: "cmnd/sonoff/steve_lamp/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+
+- platform: mqtt
+  name: "Garden Light Left"
+  state_topic: "stat/sonoff/garden_1/POWER"
+  command_topic: "cmnd/sonoff/garden_1/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+
+- platform: mqtt
+  name: "Garden Light Right"
+  state_topic: "stat/sonoff/garden_2/POWER"
+  command_topic: "cmnd/sonoff/garden_2/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+
+- platform: mqtt
+  name: "Claire Wardrobe"
+  state_topic: "stat/sonoff/extn_1/POWER"
+  command_topic: "cmnd/sonoff/extn_1/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+
+- platform: mqtt
+  name: "Living Room Lamp 3"
+  state_topic: "stat/sonoff/extn_3/POWER"
+  command_topic: "cmnd/sonoff/extn_3/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+
+- platform: mqtt
+  name: "Toilet Middle Floor"
+  state_topic: "stat/sonoff/toilet_middle/POWER"
+  command_topic: "cmnd/sonoff/toilet_middle/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+
+- platform: mqtt
+  name: "Toilet Bottom Floor"
+  state_topic: "stat/sonoff/toilet_bottom/POWER"
+  command_topic: "cmnd/sonoff/toilet_bottom/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+
+- platform: mqtt
+  name: "Hallway Bottom Floor"
+  state_topic: "stat/sonoff/hallway_bottom/POWER"
+  command_topic: "cmnd/sonoff/hallway_bottom/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+
+- platform: mqtt
+  name: "Bathroom Bottom Floor"
+  state_topic: "stat/sonoff/bathroom_bottom/POWER"
+  command_topic: "cmnd/sonoff/bathroom_bottom/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+
+- platform: mqtt
+  name: "Deck Light Left"
+  state_topic: "stat/sonoff/deck_1/POWER"
+  command_topic: "cmnd/sonoff/deck_1/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+
+- platform: mqtt
+  name: "Deck Light Right"
+  state_topic: "stat/sonoff/deck_2/POWER"
+  command_topic: "cmnd/sonoff/deck_2/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+
+- platform: mqtt
+  name: "Stairs Down"
+  state_topic: "stat/sonoff/stairs_down/POWER"
+  command_topic: "cmnd/sonoff/stairs_down/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+
+- platform: mqtt
+  name: "Downstairs Lounge"
+  state_topic: "stat/sonoff/downstairs_lounge/POWER"
+  command_topic: "cmnd/sonoff/downstairs_lounge/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+
+- platform: mqtt_json
+  name: "LED Strip 1"
+  state_topic: "bruh/strip1"
+  command_topic: "bruh/strip1/set"
+  effect: true
+  effect_list:
+    - bpm
+    - candy cane  
+    - confetti  
+    - cyclon rainbow  
+    - dots  
+    - fire  
+    - glitter  
+    - juggle  
+    - lightning
+    - noise  
+    - police all  
+    - police one  
+    - rainbow  
+    - rainbow with glitter  
+    - ripple  
+    - sinelon  
+    - solid  
+    - twinkle  
+  brightness: true
+  flash: true
+  rgb: true
+  optimistic: false
+  qos: 0
+

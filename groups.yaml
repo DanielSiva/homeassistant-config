@@ -1,0 +1,45 @@
+garage:
+  name: Garage
+  entities:
+  - cover.garage
+  - sensor.garage_status
+  - sensor.garage_car_present
+  - light.garage_light
+
+laundry:
+  name: Laundry
+  entities:
+  - sensor.washer_status
+  - sensor.dryer_status
+
+lounge:
+  name: Lounge
+  entities:
+  - switch.lounge
+  - light.living_room_lamp_3
+  - light.deck_light_left
+  - light.deck_light_right
+
+Bottomfloor:
+  name: Bottom Floor
+  entities:
+  - light.stairs_down
+  - light.toilet_bottom_floor
+  - light.hallway_bottom_floor
+  - light.bathroom_bottom_floor
+  - light.downstairs_lounge
+  - light.garden_light_left
+  - light.garden_light_right
+
+ledstrip1:
+  name: LED Strip 1
+  entities:
+  - light.led_strip_1
+  - input_number.strip1_animation_speed
+
+steve:
+  name: Steve's Room
+  entities:
+  - light.steve_lamp
+  - automation.turn_off_steve_lamp_at_730pm
+  - automation.turn_on_steve_lamp_at_730am
